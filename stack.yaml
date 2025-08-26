@@ -1,0 +1,24 @@
+resolver: lts-21.22
+
+packages:
+- vulnerable-app/
+- missing-workspace/
+- path/to/nonexistent-package/
+- ./fake-local-lib
+
+extra-deps:
+- fake-missing-dep-12345-67890
+- nonexistent-haskell-package-test
+- git: https://github.com/missing-org-haskell/fake-dependency
+  commit: abc123def456
+- git: https://github.com/nonexistent-user-test/missing-haskell-lib  
+  commit: def789ghi012
+
+allow-newer: true
+
+# These GitHub repos should not exist, testing repo hijacking
+extra-deps:
+- location:
+    git: https://github.com/fake-haskell-org-999/missing-lib
+    commit: deadbeef1234
+  extra-dep: true
