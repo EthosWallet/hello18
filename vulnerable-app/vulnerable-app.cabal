@@ -1,0 +1,60 @@
+cabal-version: 3.0
+name: vulnerable-app
+version: 0.1.0.0
+synopsis: Test application for dependency confusion
+description: This package tests various Haskell dependency confusion scenarios
+homepage: https://github.com/nonexistent-org-test/vulnerable-app
+bug-reports: https://github.com/missing-user-haskell/vulnerable-app/issues
+license: BSD-3-Clause
+author: Test Author
+maintainer: test@example.com
+category: Testing
+
+common shared-properties
+    default-language: Haskell2010
+    ghc-options: -Wall
+
+library
+    import: shared-properties
+    exposed-modules:
+        VulnerableApp
+    build-depends:
+        base >=4.16 && <5,
+        fake-missing-library-12345,
+        nonexistent-haskell-dep-999,
+        missing-test-package-haskell,
+        another-fake-dependency-67890
+    hs-source-dirs: src
+
+executable vulnerable-app
+    import: shared-properties  
+    main-is: Main.hs
+    build-depends:
+        base,
+        vulnerable-app,
+        fake-cli-tool-haskell,
+        missing-executable-dep-123
+    hs-source-dirs: app
+
+test-suite vulnerable-app-test
+    import: shared-properties
+    type: exitcode-stdio-1.0
+    main-is: Spec.hs
+    build-depends:
+        base,
+        vulnerable-app,
+        fake-test-framework-haskell,
+        missing-hspec-alternative-999,
+        nonexistent-quickcheck-addon
+    hs-source-dirs: test
+
+benchmark vulnerable-app-bench
+    import: shared-properties
+    type: exitcode-stdio-1.0
+    main-is: Bench.hs
+    build-depends:
+        base,
+        vulnerable-app,
+        fake-criterion-alternative,
+        missing-benchmark-lib-456
+    hs-source-dirs: bench
