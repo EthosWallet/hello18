@@ -1,0 +1,23 @@
+packages: 
+  vulnerable-app/
+  missing-workspace/
+  nonexistent-local-package/
+  ./another-missing-path
+
+-- This will test path confusion vulnerabilities
+-- Some paths exist, others don't - testing mixed scenarios
+
+allow-newer: true
+optimization: 2
+
+index-state: hackage.haskell.org head
+
+source-repository-package
+  type: git
+  location: https://github.com/nonexistent-org-12345/fake-haskell-lib
+  tag: master
+
+source-repository-package
+  type: git  
+  location: https://github.com/missing-user-999/another-fake-lib
+  tag: v1.0.0
